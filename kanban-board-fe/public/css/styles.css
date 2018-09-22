@@ -1,0 +1,97 @@
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+body {
+	color: #555;
+}
+a,a:hover {
+	text-decoration: none;
+}
+ul {
+	margin: 0;
+}
+header {
+	padding: 3px 0;
+	background-color: #3c5776;
+}
+header a {
+	color: rgba(255,255,255,0.8);
+}
+header ul {
+	display: inline-block;
+}
+header ul li {
+	color: rgba(255,255,255,0.8);
+	display: inline-block;
+	margin-right: 10px;
+}
+header ul li a:hover {
+	color: rgba(255,255,255,1);
+}
+header .right {
+	float: right;
+}
+.main-header {
+	background-color: #5c85b6;
+	min-height: 100px;
+}
+.main-header .site-title {
+	color: #fff
+}
+
+.main-content {
+	padding-top: 15px;
+	float: left;
+	width: 80%;
+}
+.main-content .page-title {
+	font-weight: 700;
+	font-size: 18px;
+}
+.wrapper-board {
+	font-size: 0;
+}
+.wrapper-board .row {
+	margin-left: -10px;
+	margin-right: -10px;
+}
+.wrapper-board .item{
+	width: 25%;
+	padding: 10px;
+	display: inline-block;
+}
+.wrapper-board .col-title {
+	font-size: 14px;
+	text-align: center;
+	font-weight: 700;
+	margin-bottom: 5px;
+}
+.backlogs-item {
+	background-color: #fcffdb;
+	border: 1px solid #eee;
+	padding: 3px;
+	font-size: 12px;
+	margin-bottom: 20px;
+}
+.backlogs-item .project {
+	border: 1px solid #eee;
+	text-align: center;
+	padding: 6px 0 2px 0;
+}
+.backlogs-item .title {
+	font-size: 14px;
+	font-weight: 700;
+	color: #005c99;
+	margin-top: 3px;
+}
+.backlogs-item .assign {
+	margin-top: 5px;
+	padding-top: 5px;
+	border-top: 1px solid #eee;
+	color: #005c99;
+}
+.clearfix {
+	clear: both;
+}

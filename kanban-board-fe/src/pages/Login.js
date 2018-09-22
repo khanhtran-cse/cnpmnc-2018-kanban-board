@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { sendRequest } from '../services/Http.services'
 // import { AuthenticateService } from '../services/AuthenticateService'
 import '../css/login.css';
 
-class Login extends React.Component {
-	constructor() {
-		super();
+class Login extends Component {
+	constructor(props) {
+		super(props);
 		this.state = {
 			email: '',
 			password: '',
@@ -50,7 +50,7 @@ class Login extends React.Component {
 
 			this.setState({sending: true});
 			sendRequest('post', '/login', data).then((res) => {
-				console.log(res);
+				// console.log(res);
 				if(!res.isError) {
 					// TODO: 
 				} else {

@@ -2,3 +2,7 @@
 Backend/package-lock.json
 # dependencies
 /node_modules
+.DS_Store
+.DS_Store
+Backend/.DS_Store
+Backend/database/.DS_Store

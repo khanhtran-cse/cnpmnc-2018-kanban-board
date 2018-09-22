@@ -33,6 +33,8 @@ router.post('/signup', function (req, res, next) {
 });
 
 router.post('/login', function (req, res, next) {
+  
+  console.log(req);
   const user = req.body;
   console.log('User',user);
   if (user && user.username && user.password) {

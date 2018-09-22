@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Login from './pages/Login';
+import Register from './pages/Register';
 import KangBanBoard from './pages/KangBanBoard';
 import { Route, Switch, Redirect } from 'react-router-dom'
 
@@ -21,6 +22,7 @@ class App extends Component {
           <div className="app">
 						<Switch>
 							<Route exact path='/login' component={Login} />
+              <Route exact path='/register' component={Register} />
 							<Route render={() => (<Redirect to="/login"/>)}/>
 						</Switch>
 					</div>

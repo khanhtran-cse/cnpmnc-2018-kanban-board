@@ -1,6 +1,19 @@
 import React, { Component } from 'react';
+import { LocalStorageService } from '../services/LocalStorageService'
+import { AuthenticateService  } from '../services/AuthenticateService'
 
 class HomeHeader extends Component {
+	constructor(props) {
+		super(props)
+		this.state = {
+			username: LocalStorageService.get('username')
+		}
+		console.log(this.state);
+	}
+	handleClick(event) {
+		event.preventDefault();
+		AuthenticateService.removeAuthenticate();
+	}
 	render() {
 		return(
 			<React.Fragment>
@@ -11,8 +24,8 @@ class HomeHeader extends Component {
 							<li><a href="/">Projects</a></li>
 						</ul>
 						<ul className="right">
-							<li>Logged in as <a href="/">congluc19297@gmail.com</a></li>
-							<li><a href="/">Logout</a></li>
+							<li>Logged in as <a href="/">{this.state.username || '	'}</a></li>
+							<li><a href="/" onClick={(e) => {this.handleClick(e)}}>Logout</a></li>
 						</ul>
 					</div>
 				</header>

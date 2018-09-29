@@ -13,7 +13,7 @@ class KangBanBoard extends Component {
 							</div>
 							<div className="wrapper-board">
 								<div className="row">
-								<div class="item">
+								<div className="item">
 										<div className="col-title">Todo</div>
 										<div className="backlogs-item">
 											<div className="project">01. Project Axon</div>
@@ -39,7 +39,7 @@ class KangBanBoard extends Component {
 									</div>
 
 									{/* Column 2 */}
-									<div class="item">
+									<div className="item">
 									<div className="col-title">In Process</div>
 										<div className="backlogs-item">
 											<div className="project">01. Project Axon</div>
@@ -66,7 +66,7 @@ class KangBanBoard extends Component {
 
 									{/* Columne 3 */}
 
-									<div class="item">
+									<div className="item">
 										<div className="col-title">Bugs</div>
 										<div className="backlogs-item">
 											<div className="project">01. Project Axon</div>
@@ -92,7 +92,7 @@ class KangBanBoard extends Component {
 									</div>
 
 									{/* Column 4 */}
-									<div class="item">
+									<div className="item">
 										<div className="col-title">Done</div>
 										<div className="backlogs-item">
 											<div className="project">01. Project Axon</div>

@@ -33,9 +33,11 @@ router.get('/backlogs', function (req, res, next) {
         });
       });
     return;
+  } else{
+    res.status(200).send({ code: code.INPUT_ERROR, message: 'Input error' });
   }
 
-  res.status(200).send({ code: code.SERVER_ERROR, message: 'Server error' });
+  // res.status(200).send({ code: code.SERVER_ERROR, message: 'Server error' });
 });
 
 router.post('/create-backlog', function (req, res, next) {

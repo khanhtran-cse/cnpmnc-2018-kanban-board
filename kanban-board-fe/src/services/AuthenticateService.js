@@ -5,12 +5,15 @@ export const AuthenticateService = {
         LocalStorageService.set('username', user)
         LocalStorageService.set('accesstoken', token)
         window.location.href = '/'
-		},
-		isAuthenticate: () => {
-			const isAuth = LocalStorageService.get('accesstoken');
-			if (!isAuth) return false
-			return true
-		},
+    },
+    isAuthenticate: () => {
+        const isAuth = LocalStorageService.get('accesstoken');
+        if (!isAuth) return false
+        return true
+    },
+    getUserId: () => {
+        return LocalStorageService.get('accesstoken');
+    },
     getAuthenticateGmail: () => {
         try {
             let data = JSON.parse(LocalStorageService.get('username'));

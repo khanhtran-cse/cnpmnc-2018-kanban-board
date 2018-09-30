@@ -1,21 +1,41 @@
 import React, { Component } from 'react';
 import HomeHeader from '../components/HomeHeader';
 import { AuthenticateService } from '../services/AuthenticateService'
-const tasks = require('./backlog.json');
+
+import { sendRequest } from '../services/Http.services'
+
+import swal from 'sweetalert2';
+
+// const tasks = require('./backlog.json');
 
 class KangBanBoard extends Component {
 	constructor(props) {
     super(props);
     this.state = {
-      isAuth: AuthenticateService.isAuthenticate(),
+			isAuth: AuthenticateService.isAuthenticate(),
+			backlogs:[],
+			localBacklogs:[],
 		}
+		this.userId = AuthenticateService.getUserId();
 	}
 	componentWillMount() {
 		if(!this.state.isAuth) {
 			AuthenticateService.removeAuthenticate();
 		}
+		console.log(this.userId);
+		sendRequest('GET',`items/backlogs?userId=${this.userId}`,{}).then(data=>{
+			console.log(data);
+			data = data.data;
+			if(data.code == 0){
+				this.setState({ backlogs: data.data });
+			} else{
+				swal('Error!', 'Đã xảy ra lỗi.', 'error')
+			}
+		});
 	}
+
 	render() {
+		const tasks = [...this.state.backlogs,...this.state.localBacklogs];
 		const todoTask = tasks.filter((item)=>item.status ==0);
 		const inProcess = tasks.filter((item)=>item.status == 1);
 		const review = tasks.filter((item)=>item.status == 2);

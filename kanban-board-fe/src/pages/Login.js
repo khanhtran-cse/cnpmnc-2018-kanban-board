@@ -73,7 +73,7 @@ class Login extends Component {
                             isAuth: res.data.data.id,
                             username: res.data.data.username,
                         })
-                        AuthenticateService.setAuthenticateUser(true, res.data.data.username)
+                        AuthenticateService.setAuthenticateUser(res.data.data.id, res.data.data.username)
                         this.props.history.push({
                             pathname: '/',
                         })
@@ -91,7 +91,7 @@ class Login extends Component {
                 //     isAuth: true,
                 //     username: email,
                 // })
-                // AuthenticateService.setAuthenticateUser(true, email)
+                // AuthenticateService.setAuthenticateUser(res.data.data.id, email)
                 // this.props.history.push({
                 //     pathname: '/',
                 // })

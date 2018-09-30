@@ -1,16 +1,20 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import KangBanBoard from './pages/KangBanBoard';
 import { Route, Switch, Redirect } from 'react-router-dom'
+import { AuthenticateService } from './services/AuthenticateService'
 
 import './App.css';
+
+
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isAuth: false
+      isAuth: AuthenticateService.isAuthenticate(),
     }
   }
   render() {
@@ -41,4 +45,9 @@ class App extends Component {
   }
 }
 
-export default App;
+// export default App;
+const mapStateToProps = state => {
+  return { user: state.user };
+};
+
+export default connect(mapStateToProps)(App);

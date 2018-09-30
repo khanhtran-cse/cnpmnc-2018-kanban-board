@@ -16,7 +16,8 @@ $ npm install
 ## Run dev mode
 
 ```
-$ npm start
+$ npm start (Ubuntu & MacOS)
+$ npm run dev (Ubuntu & MacOS)
 ```
 
 ## Build Project

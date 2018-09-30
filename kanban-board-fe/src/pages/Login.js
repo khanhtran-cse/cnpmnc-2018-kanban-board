@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { sendRequest } from '../services/Http.services'
-// import { AuthenticateService } from '../services/AuthenticateService'
-import '../css/login.css';
+import { AuthenticateService } from '../services/AuthenticateService'
+import '../assets/css/login.css';
 
 class Login extends Component {
     constructor(props) {
@@ -15,7 +16,14 @@ class Login extends Component {
             sending: false
         }
     }
-
+    componentDidMount() {
+        // console.log(this);
+        // this.props.dispatch({
+        //     type: 'UPDATE_USER',
+        //     isAuth: true,
+        //     username: 'congluc19297@gmail.com',
+        // })
+    }
     onChangeEmail = (e) => {
         this.setState({ email: e.target.value })
         this.validateField('email', e.target.value)
@@ -53,8 +61,8 @@ class Login extends Component {
 
             this.setState({ sending: true });
             sendRequest('post', 'users/login', data).then((res) => {
-                console.log(res);
-                console.log('data', data);
+                // console.log(res);
+                // console.log('data', data);
                 if (!res.isError) {
                     // TODO: 
                 } else {
@@ -62,6 +70,15 @@ class Login extends Component {
                     this.setState({ errLogin: true });
                     this.setState({ msg: "Something went wrong!" })
                 }
+                this.props.dispatch({
+                    type: 'UPDATE_USER',
+                    isAuth: true,
+                    username: email,
+                })
+                AuthenticateService.setAuthenticateUser(true, email)
+                // this.props.history.push({
+                //     pathname: '/',
+                // })
             })
         }
     }
@@ -117,4 +134,10 @@ class Login extends Component {
         );
     }
 }
-export default Login;
+// export default Login;
+
+const mapStateToProps = state => {
+    return { user: state.user };
+};
+
+export default connect(mapStateToProps)(Login);

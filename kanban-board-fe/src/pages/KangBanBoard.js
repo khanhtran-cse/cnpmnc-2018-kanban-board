@@ -57,15 +57,21 @@ class KangBanBoard extends Component {
 		const inProcess = tasks.filter((item)=>item.status == 1);
 		const review = tasks.filter((item)=>item.status == 2);
 		const done = tasks.filter(item=>item.status == 3);
+		const productBL = tasks.filter(item=>item.status == 4);
+		const sprintBL = tasks.filter(item=>item.status == 5);
 
 		const todoView = [];
 		const inProcessView = [];
 		const reviewView = [];
 		const doneView = [];
+		const productBLView = [];
+		const sprintBLView = [];
 
 		todoTask.forEach(item=>{
 			const view = <div className="backlogs-item" key={item.id}>
-				<div className="project">{item.project}</div>
+				<div className="project">
+					<a href={`/backlog/${item.id}`}>{item.project}</a>
+				</div>
 				<div className="title">{item.name}</div>
 				<div className="due-date">Due date: <span>{item.start_date}</span></div>
 				<div className="phase">Phase: <span>{item.phase}</span></div>
@@ -77,7 +83,9 @@ class KangBanBoard extends Component {
 
 		inProcess.forEach(item => {
 			const view = <div className="backlogs-item" key={item.id}>
-				<div className="project">{item.project}</div>
+				<div className="project">
+					<a href={`/backlog/${item.id}`}>{item.project}</a>
+				</div>
 				<div className="title">{item.name}</div>
 				<div className="due-date">Due date: <span>{item.start_date}</span></div>
 				<div className="phase">Phase: <span>{item.phase}</span></div>
@@ -89,7 +97,9 @@ class KangBanBoard extends Component {
 
 		review.forEach(item => {
 			const view = <div className="backlogs-item" key={item.id}>
-				<div className="project">{item.project}</div>
+				<div className="project">
+					<a href={`/backlog/${item.id}`}>{item.project}</a>
+				</div>
 				<div className="title">{item.name}</div>
 				<div className="due-date">Due date: <span>{item.start_date}</span></div>
 				<div className="phase">Phase: <span>{item.phase}</span></div>
@@ -101,7 +111,9 @@ class KangBanBoard extends Component {
 
 		done.forEach(item => {
 			const view = <div className="backlogs-item" key={item.id}>
-				<div className="project">{item.project}</div>
+				<div className="project">
+					<a href={`/backlog/${item.id}`}>{item.project}</a>
+				</div>
 				<div className="title">{item.name}</div>
 				<div className="due-date">Due date: <span>{item.start_date}</span></div>
 				<div className="phase">Phase: <span>{item.phase}</span></div>
@@ -110,18 +122,54 @@ class KangBanBoard extends Component {
 
 			doneView.push(view);
 		});
+
+		productBL.forEach(item => {
+			const product = <div className="backlogs-item" key={item.id}>
+				<div className="project">
+					<a href={`/backlog/${item.id}`}>{item.project}</a>
+				</div>
+				<div className="title">{item.name}</div>
+				<div className="due-date">Due date: <span>{item.start_date}</span></div>
+				<div className="phase">Phase: <span>{item.phase}</span></div>
+				<div className="assign">@{item.assignTo} - </div>
+			</div>
+
+			productBLView.push(product);
+		});
+
+		sprintBL.forEach(item => {
+			const sprint = <div className="backlogs-item" key={item.id}>
+				<div className="project">
+					<a href={`/backlog/${item.id}`}>{item.project}</a>
+				</div>
+				<div className="title">{item.name}</div>
+				<div className="due-date">Due date: <span>{item.start_date}</span></div>
+				<div className="phase">Phase: <span>{item.phase}</span></div>
+				<div className="assign">@{item.assignTo} - </div>
+			</div>
+
+			sprintBLView.push(sprint);
+		});
 		
 		return (
 			<React.Fragment>
 				<HomeHeader />
-					<div className="container">
-						<div className="main-content">
+					<div className="container-fuild">
+						<div className="main-content board">
 							<div className="page-title">
 								<span>Kangban Board</span>
 								<a href="/create-backlog" className="create-new-item">Create New Item</a>
 							</div>
 							<div className="wrapper-board">
 								<div className="row">
+									<div className="item">
+										<div className="col-title">Product BL</div>
+										{productBLView}
+									</div>
+									<div className="item">
+										<div className="col-title">Sprint BL</div>
+										{sprintBLView}
+									</div>
 									<div className="item">
 										<div className="col-title">Todo</div>
 											{todoView}
@@ -148,7 +196,7 @@ class KangBanBoard extends Component {
 								</div>
 							</div>
 						</div>
-						<div className="side-bar"></div>
+						{/* <div className="side-bar"></div> */}
 						<div className="clearfix"></div>
 					</div>
 			</React.Fragment>

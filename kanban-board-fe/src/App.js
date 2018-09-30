@@ -4,6 +4,7 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import KangBanBoard from './pages/KangBanBoard';
 import CreateBackLog from './pages/CreateBackLog';
+import BackLogDetail from './pages/BackLogDetail';
 import { Route, Switch, Redirect } from 'react-router-dom'
 import { AuthenticateService } from './services/AuthenticateService'
 
@@ -36,8 +37,11 @@ class App extends Component {
           isAuth &&
           <div className="app">
             <Switch>
+              
               <Route exact path='/' component={KangBanBoard} />
-              <Route path='/create-backlog' component={CreateBackLog} />
+              <Route exact path='/create-backlog' component={CreateBackLog} />
+              <Route exact path='/backlog/:id' component={BackLogDetail} />
+              
               <Route render={() => (<Redirect to="/"/>)}/>
             </Switch>
           </div>

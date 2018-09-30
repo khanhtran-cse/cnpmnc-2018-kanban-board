@@ -1,18 +1,17 @@
 import React from 'react';
+import { LocalStorageService } from '../services/LocalStorageService';
 import { connect } from 'react-redux';
 import HomeHeader from '../components/HomeHeader';
-
-import { AuthenticateService } from '../services/AuthenticateService'
-import { sendRequest } from '../services/Http.services'
+// import { sendRequest } from '../services/Http.services'
 
 import swal from 'sweetalert2'
 
-class CreateBackLog extends React.Component {
+class BackLogDetail extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
 			task: {
-				id: 0,
+				id: -1,
 				project: '',
 				name: '',
 				description: '',
@@ -24,33 +23,41 @@ class CreateBackLog extends React.Component {
 			}
 		}
 	}
+	componentWillMount() {
+		const id = parseInt(this.props.match.params.id, 10)	;
+		const cloneTask = LocalStorageService.get('tasks') || [];
+
+		const task = cloneTask.filter((item)=> item.id === id);
+		if(task.length !== 0) {
+			console.log(task[0]);
+			this.setState({
+				task: task[0]
+			})
+		} else {
+			window.location.href = '/'
+		}
+	}
+
 	handleSubmit(event) {
 		event.preventDefault();
 		try {
-			this.props.dispatch({
-				type: 'UPDATE_TASK',
-				task: this.state.task
-			});
-
-			const id = AuthenticateService.getUserId();
-			const data = {userId: id, data: this.state.task};
-			sendRequest('post', 'items/create-backlog', data).then(res => {
-				if(!res.isError) {
-					//TODO
-					const response = res.data;
-					if(response.code == 0){
-						swal('Success!', 'Thêm mới thành công!', 'success')
-					} else{
-						swal('Error!', 'Thêm mới không thành công!', 'error')
+			const cloneTask = LocalStorageService.get('tasks') || [];
+			if(cloneTask.length !== 0) {
+				let taskUpdate = cloneTask.map(item => {
+					var data = item;
+					if(data.id == this.state.task.id) {
+						console.log("item before", item);
+						data = this.state.task;
 					}
-				} else {
-					swal('Error!', 'Thêm mới không thành công!', 'error')
-				}
-			});
-			console.log("tasks after update", this.props.tasks);
-			window.location.href = '/'
+					console.log("data after", data);
+					return data
+				});
+				console.log(taskUpdate);
+				LocalStorageService.set('tasks', taskUpdate);
+				swal('Success!', 'Chỉnh sửa thành công', 'success');
+			}
 		} catch (error) {
-			swal('Error!', 'Thêm mới không thành công!', 'error')
+			swal('Error!', 'Chỉnh sửa không thành công!', 'error')
 		}
 	}
 	onChangeTitle = (e) => {
@@ -126,9 +133,11 @@ class CreateBackLog extends React.Component {
 	
 	render() {
 		const {
+			id,
 			project,
 			name,
 			description,
+			status,
 			start_date,
 			end_date,
 		} = this.state.task
@@ -139,7 +148,7 @@ class CreateBackLog extends React.Component {
 					{/* Main content */}
 					<div className="main-content">
 						<div className="page-title">
-							<span>Create New Backlog Item</span>
+							<span>Backlog Item #{id}</span>
 						</div>
 						<div className="create-board">
 							<div className="row">
@@ -161,17 +170,17 @@ class CreateBackLog extends React.Component {
 								</div>
 								<div className="col-xs-6 input-group">
 									<label>End Time</label>
-									<input onChange={this.onChangeEnd} value={end_date} type="date" className="form-control" />
+									<input onChange={this.onChangeEnd} value={end_date}type="date" className="form-control" />
 								</div>
 								<div className="col-xs-6 input-group">
 									<label>Status</label>
-									<select onChange={this.onChangeStatus} className="input-group input-select">
-										<option value="0">Todo</option>
-										<option value="1">In process</option>
-										<option value="2">To verify</option>
-										<option value="3">Done</option>
-										<option value="4">Product Backlog</option>
-										<option value="5">Sprint Backlog</option>
+									<select value={status} onChange={this.onChangeStatus} className="input-group input-select">
+										<option value="0" >Todo</option>
+										<option value="1" >In process</option>
+										<option value="2" >To verify</option>
+										<option value="3" >Done</option>
+										<option value="4" >Product Backlog</option>
+										<option value="5" >Sprint Backlog</option>
 									</select>
 								</div>
 								<div className="col-xs-6 input-group">
@@ -186,28 +195,27 @@ class CreateBackLog extends React.Component {
 								<div className="col-xs-6 input-group">
 									<label>Phase</label>
 									<select onChange={this.onChangePhase} className="input-group input-select">
-										<option value="Front End" >Front End</option>
-										<option value="Backend">Back End</option>
+										<option value="FrontEnd" >Front End</option>
+										<option value="BackEnd">Back End</option>
 										<option value="Design">Design</option>
 									</select>
 								</div>
 								<div className="col-xs-6 input-group">
 									<label>Assign</label>
 									<select onChange={this.onChangeAssign} className="input-group input-select">
-										<option value="luctc" >@luctc</option>
+										<option value="luctc">@luctc</option>
 										<option value="khang">@khang</option>
 										<option value="nam">@nam</option>
 										<option value="tam">@tam</option>
 									</select>
 								</div>
 								<div className="col-xs-12 btn-submit-create">
-									<button className="btn btn-success" type="submit" onClick={(e) => {this.handleSubmit(e)}} >Create</button>
+									<button className="btn btn-success" type="submit" onClick={(e) => {this.handleSubmit(e)}} >Update</button>
 								</div>
 							</div>
 						</div>
 					</div>
 					{/* End Main Content */}
-
 
 					<div className="side-bar"></div>
 				</div>
@@ -220,4 +228,5 @@ const mapStateToProps = state => {
 	return { tasks: state.tasks };
 };
 
-export default connect(mapStateToProps)(CreateBackLog);
+export default connect(mapStateToProps)(BackLogDetail);
+

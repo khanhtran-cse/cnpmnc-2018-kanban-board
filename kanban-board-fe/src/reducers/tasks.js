@@ -57,7 +57,7 @@ const initTask = [
     "phase": "Backend"
   },
   {
-    "id": 1,
+    "id": 6,
     "project": "Axon active",
     "name": "Fake front data",
     "description": "How to use backlog",
@@ -68,7 +68,7 @@ const initTask = [
     "phase": "Backend"
   },
   {
-    "id": 6,
+    "id": 7,
     "project": "Axon active",
     "name": "Backlog 5",
     "description": "How to use backlog",
@@ -79,7 +79,7 @@ const initTask = [
     "phase": "Makerting"
   },
   {
-    "id": 7,
+    "id": 8,
     "project": "Axon active",
     "name": "Backlog 5",
     "description": "How to use backlog",
@@ -90,7 +90,7 @@ const initTask = [
     "phase": "Frontend"
   },
   {
-    "id": 8,
+    "id": 9,
     "project": "Kanban ",
     "name": "Init backend",
     "description": "How to use backlog",
@@ -105,14 +105,14 @@ const initTask = [
 const tasks = (state = initTask, action) => {
   switch (action.type) {
 		case 'UPDATE_TASK':
-			console.log("Reducer task", action, state);
-			LocalStorageService.set('tasks', [
-				...state,
-				action.task
-			]);
+
+			// console.log("Reducer task", action, state);
+			const cloneTask = [...LocalStorageService.get('tasks')];
+			cloneTask.push(action.task);
+			console.log("Clone task", cloneTask);
+			LocalStorageService.set('tasks', cloneTask);
       return [
-				...state,
-				action.task
+				...cloneTask
 			]
     default:
       return state

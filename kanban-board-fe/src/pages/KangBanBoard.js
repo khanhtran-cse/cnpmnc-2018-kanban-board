@@ -1,8 +1,20 @@
 import React, { Component } from 'react';
 import HomeHeader from '../components/HomeHeader';
+import { AuthenticateService } from '../services/AuthenticateService'
 const tasks = require('./backlog.json');
 
 class KangBanBoard extends Component {
+	constructor(props) {
+    super(props);
+    this.state = {
+      isAuth: AuthenticateService.isAuthenticate(),
+		}
+	}
+	componentWillMount() {
+		if(!this.state.isAuth) {
+			AuthenticateService.removeAuthenticate();
+		}
+	}
 	render() {
 		const todoTask = tasks.filter((item)=>item.status ==0);
 		const inProcess = tasks.filter((item)=>item.status == 1);
@@ -69,6 +81,7 @@ class KangBanBoard extends Component {
 						<div className="main-content">
 							<div className="page-title">
 								<span>Kangban Board</span>
+								<a href="/create-backlog" className="create-new-item">Create New Item</a>
 							</div>
 							<div className="wrapper-board">
 								<div className="row">

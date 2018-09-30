@@ -8,7 +8,6 @@ class HomeHeader extends Component {
 		this.state = {
 			username: LocalStorageService.get('username')
 		}
-		console.log(this.state);
 	}
 	handleClick(event) {
 		event.preventDefault();

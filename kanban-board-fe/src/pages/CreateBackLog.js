@@ -1,7 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import HomeHeader from '../components/HomeHeader';
-// import { sendRequest } from '../services/Http.services'
+
+import { AuthenticateService } from '../services/AuthenticateService'
+import { sendRequest } from '../services/Http.services'
 
 import swal from 'sweetalert2'
 
@@ -29,15 +31,23 @@ class CreateBackLog extends React.Component {
 				type: 'UPDATE_TASK',
 				task: this.state.task
 			});
-			// const data = this.state.task;
-			// sendRequest('post', '', data).then(res => {
-			// 	if(!res.isError) {
-			// 		//TODO
-			// 	} else {
-			// 		swal('Error!', 'Thêm mới không thành công!', 'error')
-			// 	}
-			// });
-			// console.log("tasks after update", this.props.tasks);
+
+			const id = AuthenticateService.getUserId();
+			const data = {userId: id, data: this.state.task};
+			sendRequest('post', 'items/create-backlog', data).then(res => {
+				if(!res.isError) {
+					//TODO
+					const response = res.data;
+					if(response.code == 0){
+						swal('Success!', 'Thêm mới thành công!', 'success')
+					} else{
+						swal('Error!', 'Thêm mới không thành công!', 'error')
+					}
+				} else {
+					swal('Error!', 'Thêm mới không thành công!', 'error')
+				}
+			});
+			console.log("tasks after update", this.props.tasks);
 			window.location.href = '/'
 		} catch (error) {
 			swal('Error!', 'Thêm mới không thành công!', 'error')

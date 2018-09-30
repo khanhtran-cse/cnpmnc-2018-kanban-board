@@ -67,7 +67,7 @@ class Login extends Component {
                 // console.log(res);
                 // console.log('data', data);
                 if (!res.isError) {
-                    if (res.data.code == 0) {
+                    if (res.data.code === 0) {
                         this.props.dispatch({
                             type: 'UPDATE_USER',
                             isAuth: res.data.data.id,

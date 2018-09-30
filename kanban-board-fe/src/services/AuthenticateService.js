@@ -7,7 +7,7 @@ export const AuthenticateService = {
         window.location.href = '/'
 		},
 		isAuthenticate: () => {
-			const isAuth = LocalStorageService.get('accesstoken')
+			const isAuth = LocalStorageService.get('accesstoken');
 			if (!isAuth) return false
 			return true
 		},

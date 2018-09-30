@@ -1,7 +1,19 @@
 import React, { Component } from 'react';
 import HomeHeader from '../components/HomeHeader';
+import { AuthenticateService } from '../services/AuthenticateService'
 
 class KangBanBoard extends Component {
+	constructor(props) {
+    super(props);
+    this.state = {
+      isAuth: AuthenticateService.isAuthenticate(),
+		}
+	}
+	componentWillMount() {
+		if(!this.state.isAuth) {
+			AuthenticateService.removeAuthenticate();
+		}
+	}
 	render() {
 		return (
 			<React.Fragment>
@@ -10,6 +22,7 @@ class KangBanBoard extends Component {
 						<div className="main-content">
 							<div className="page-title">
 								<span>Kangban Board</span>
+								<a href="/create-backlog" className="create-new-item">Create New Item</a>
 							</div>
 							<div className="wrapper-board">
 								<div className="row">

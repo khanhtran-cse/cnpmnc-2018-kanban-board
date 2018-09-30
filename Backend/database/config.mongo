@@ -1,5 +1,5 @@
 ##store data
-dbpath=./mongoStore/data
+dbpath=/Users/khanhtran/Projects/Other/cnpmnc-2018-kanban-board/Backend/database/mongoStore/data
  
 ##all output go here
-logpath=./mongoStore/log.mongo.log
+logpath=/Users/khanhtran/Projects/Other/cnpmnc-2018-kanban-board/Backend/database//mongoStore/log.mongo.log

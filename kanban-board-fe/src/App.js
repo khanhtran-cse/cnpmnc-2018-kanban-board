@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import KangBanBoard from './pages/KangBanBoard';
+import CreateBackLog from './pages/CreateBackLog';
 import { Route, Switch, Redirect } from 'react-router-dom'
 import { AuthenticateService } from './services/AuthenticateService'
 
@@ -36,6 +37,7 @@ class App extends Component {
           <div className="app">
             <Switch>
               <Route exact path='/' component={KangBanBoard} />
+              <Route path='/create-backlog' component={CreateBackLog} />
               <Route render={() => (<Redirect to="/"/>)}/>
             </Switch>
           </div>

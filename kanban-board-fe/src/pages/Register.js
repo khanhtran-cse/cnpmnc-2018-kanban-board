@@ -56,17 +56,26 @@ class Register extends Component {
 		// console.log(this.state.formErrors)
 	}
 	onSubmit = (e) => {
+		console.log('Submit');
 		e.preventDefault();
 		const { email, password, pwConfirm, formErrors } = this.state;
 		if (formErrors.email === '' && formErrors.password === '' && formErrors.pwConfirm === '') {
 			this.setState({sending: true});
-			let data = { email: email, password: password, pwConfirm: pwConfirm }
-			sendRequest('post', '/register', data).then((res) => {
+			let data = { username: email, password: password }
+			sendRequest('post', '/users/signup', data).then((res) => {
 				// console.log(res);
 				if(!res.isError) {
 					// TODO:
+					if(res && res.data.code == 0){
+						alert('Đăng ký thành công.')
+					} else if(res.data.code == 3){
+						alert('Tên đăng nhập đã tồn tại.')
+					} else{
+						alert('Lỗi hệ thống');
+					}
 				} else {
-					// console.log(res)
+					alert('Something wrong');
+					
 				}
 				this.setState({sending: false});
 			});

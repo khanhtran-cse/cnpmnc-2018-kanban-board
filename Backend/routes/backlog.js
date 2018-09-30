@@ -14,6 +14,11 @@ router.get('/backlogs', function (req, res, next) {
 
   if (userId) {
     database.getBacklogs(userId).then(result => {
+      const s = result.map(item => {
+        item.id = item._id;
+        item._id = undefined;
+        return item;
+      });
       res.status(200).send({
         code: code.SUCCESS,
         message: 'Backlogs',

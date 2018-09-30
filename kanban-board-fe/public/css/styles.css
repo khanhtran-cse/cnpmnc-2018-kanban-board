@@ -46,6 +46,12 @@ header .right {
 	float: left;
 	width: 80%;
 }
+.main-content.board {
+	width: auto;
+	float: none;
+	padding-left: 15px;
+	padding-right: 15px;
+}
 .main-content .page-title {
 	font-weight: 700;
 	font-size: 18px;
@@ -58,7 +64,7 @@ header .right {
 	margin-right: -10px;
 }
 .wrapper-board .item{
-	width: 25%;
+	width: 16.6666667%;
 	padding: 10px;
 	display: inline-block;
 	vertical-align: top;

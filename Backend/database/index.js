@@ -118,18 +118,21 @@ function getBacklog(id) {
     });
 }
 
-function insertBacklog(data){
-//     db.collection(BACKLOG_TABLE).insertMany([data], (err, result) => {
-//         if (err) {
-//             reject(err);
-//             return;
-//         }
-//         resolve();
-//     })
-// })
-//             .catch (err => {
-//     reject(err);
-// });
+function insertBacklog(data) {
+    return new Promise((resolve, reject) => {
+        connectDatabase().then(db => {
+            db.collection(BACKLOG_TABLE).insertMany([data], (err, result) => {
+                if (err) {
+                    reject(err);
+                    return;
+                }
+                resolve();
+            });
+        })
+            .catch(err => {
+                reject(err);
+            });
+    });
 }
 
 module.exports = {
@@ -137,5 +140,6 @@ module.exports = {
     login,
     existUser,
     getBacklogs,
-    getBacklog
+    getBacklog,
+    insertBacklog
 }

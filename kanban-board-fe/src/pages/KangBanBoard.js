@@ -42,11 +42,15 @@ class KangBanBoard extends Component {
 		console.log(this.userId);
 		sendRequest('GET',`items/backlogs?userId=${this.userId}`,{}).then(data=>{
 			console.log(data);
-			data = data.data;
-			if(data.code == 0){
-				this.setState({ backlogs: data.data });
-			} else{
-				swal('Error!', 'Đã xảy ra lỗi.', 'error')
+			if(!data.isError) {
+				data = data.data;
+				if(data.code === 0){
+					this.setState({ backlogs: data.data });
+				} else{
+					swal('Error!', 'Đã xảy ra lỗi.', 'error')
+				}
+			} else {
+				this.setState({ backlogs: LocalStorageService.get('tasks') });
 			}
 		});
 	}

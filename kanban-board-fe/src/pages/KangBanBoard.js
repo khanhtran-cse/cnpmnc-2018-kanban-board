@@ -3,6 +3,11 @@ import { connect } from 'react-redux';
 import HomeHeader from '../components/HomeHeader';
 import { AuthenticateService } from '../services/AuthenticateService'
 import { LocalStorageService } from '../services/LocalStorageService';
+
+import { sendRequest } from '../services/Http.services'
+
+import swal from 'sweetalert2';
+
 // const tasks = require('./backlog.json');
 
 class KangBanBoard extends Component {
@@ -10,8 +15,10 @@ class KangBanBoard extends Component {
     super(props);
     this.state = {
 			isAuth: AuthenticateService.isAuthenticate(),
-			tasks: LocalStorageService.get('tasks')
+			localBacklogs: LocalStorageService.get('tasks'),
+			backlogs:[],
 		}
+		this.userId = AuthenticateService.getUserId();
 	}
 	componentWillMount() {
 		if(!this.state.isAuth) {
@@ -34,12 +41,24 @@ class KangBanBoard extends Component {
 		// 		"phase": "Backend"
 		// 	}
 		// })
+		// console.log(this.userId);
+		// sendRequest('GET',`items/backlogs?userId=${this.userId}`,{}).then(data=>{
+		// 	console.log(data);
+		// 	data = data.data;
+		// 	if(data.code == 0){
+		// 		this.setState({ backlogs: data.data });
+		// 	} else{
+		// 		swal('Error!', 'Đã xảy ra lỗi.', 'error')
+		// 	}
+		// });
 	}
+
 	render() {
-		const todoTask = this.state.tasks.filter((item)=>item.status === 0);
-		const inProcess = this.state.tasks.filter((item)=>item.status === 1);
-		const review = this.state.tasks.filter((item)=>item.status === 2);
-		const done = this.state.tasks.filter(item=>item.status === 3);
+		const tasks = [...this.state.backlogs,...this.state.localBacklogs];
+		const todoTask = tasks.filter((item)=>item.status ==0);
+		const inProcess = tasks.filter((item)=>item.status == 1);
+		const review = tasks.filter((item)=>item.status == 2);
+		const done = tasks.filter(item=>item.status == 3);
 
 		const todoView = [];
 		const inProcessView = [];

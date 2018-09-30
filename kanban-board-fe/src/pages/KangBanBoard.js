@@ -13,7 +13,7 @@ class KangBanBoard extends Component {
 							</div>
 							<div className="wrapper-board">
 								<div className="row">
-								<div className="item">
+									<div className="item">
 										<div className="col-title">Todo</div>
 										<div className="backlogs-item">
 											<div className="project">01. Project Axon</div>

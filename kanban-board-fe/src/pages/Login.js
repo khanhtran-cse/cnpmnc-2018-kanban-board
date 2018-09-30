@@ -4,6 +4,9 @@ import { sendRequest } from '../services/Http.services'
 import { AuthenticateService } from '../services/AuthenticateService'
 import '../assets/css/login.css';
 
+import swal from 'sweetalert2'
+
+
 class Login extends Component {
     constructor(props) {
         super(props);
@@ -76,9 +79,10 @@ class Login extends Component {
                     username: email,
                 })
                 AuthenticateService.setAuthenticateUser(true, email)
-                // this.props.history.push({
-                //     pathname: '/',
-                // })
+                this.props.history.push({
+                    pathname: '/',
+                })
+                swal('Success!', 'Đăng nhập thành công', 'success')
             })
         }
     }

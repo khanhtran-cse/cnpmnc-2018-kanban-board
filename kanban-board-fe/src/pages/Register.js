@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { sendRequest } from '../services/Http.services'
 // import { AuthenticateService } from '../services/AuthenticateService'
 
+import swal from 'sweetalert2'
+
 class Register extends Component {
 	constructor(props) {
 		super(props)
@@ -67,14 +69,14 @@ class Register extends Component {
 				if(!res.isError) {
 					// TODO:
 					if(res && res.data.code == 0){
-						alert('Đăng ký thành công.')
+						swal('Success!', 'Đăng ký thành công.', 'success');
 					} else if(res.data.code == 3){
-						alert('Tên đăng nhập đã tồn tại.')
+						swal('Error!', 'Tên đăng nhập đã tồn tại.', 'error');
 					} else{
-						alert('Lỗi hệ thống');
+						swal('Error!', 'Lỗi hệ thống', 'error');
 					}
 				} else {
-					alert('Something wrong');
+					swal('Error!', 'Lỗi hệ thống', 'error');
 					
 				}
 				this.setState({sending: false});

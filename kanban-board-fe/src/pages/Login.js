@@ -67,22 +67,35 @@ class Login extends Component {
                 // console.log(res);
                 // console.log('data', data);
                 if (!res.isError) {
-                    // TODO: 
+                    if (res.data.code == 0) {
+                        this.props.dispatch({
+                            type: 'UPDATE_USER',
+                            isAuth: res.data.data.id,
+                            username: res.data.data.username,
+                        })
+                        AuthenticateService.setAuthenticateUser(true, res.data.data.username)
+                        this.props.history.push({
+                            pathname: '/',
+                        })
+                    } else{
+                        this.setState({ sending: false });
+                        swal('Error!', 'Đăng nhập thất bại', 'error')
+                    }
                 } else {
                     this.setState({ sending: false });
                     this.setState({ errLogin: true });
                     this.setState({ msg: "Something went wrong!" })
                 }
-                this.props.dispatch({
-                    type: 'UPDATE_USER',
-                    isAuth: true,
-                    username: email,
-                })
-                AuthenticateService.setAuthenticateUser(true, email)
-                this.props.history.push({
-                    pathname: '/',
-                })
-                swal('Success!', 'Đăng nhập thành công', 'success')
+                // this.props.dispatch({
+                //     type: 'UPDATE_USER',
+                //     isAuth: true,
+                //     username: email,
+                // })
+                // AuthenticateService.setAuthenticateUser(true, email)
+                // this.props.history.push({
+                //     pathname: '/',
+                // })
+                // swal('Success!', 'Đăng nhập thành công', 'success')
             })
         }
     }

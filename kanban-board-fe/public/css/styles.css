@@ -99,6 +99,7 @@ header .right {
 
 .create-board {
 	padding-right: 200px;
+	padding-bottom: 100px;
 }
 .create-board span {
 	font-size: 14px;

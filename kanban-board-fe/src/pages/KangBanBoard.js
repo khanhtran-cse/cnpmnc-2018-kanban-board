@@ -1,25 +1,45 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import HomeHeader from '../components/HomeHeader';
 import { AuthenticateService } from '../services/AuthenticateService'
-const tasks = require('./backlog.json');
+import { LocalStorageService } from '../services/LocalStorageService';
+// const tasks = require('./backlog.json');
 
 class KangBanBoard extends Component {
 	constructor(props) {
     super(props);
     this.state = {
-      isAuth: AuthenticateService.isAuthenticate(),
+			isAuth: AuthenticateService.isAuthenticate(),
+			tasks: LocalStorageService.get('tasks')
 		}
 	}
 	componentWillMount() {
 		if(!this.state.isAuth) {
 			AuthenticateService.removeAuthenticate();
 		}
+		// console.log("tasks local: ", this.state.tasks);
+	}
+	componentDidMount() {
+		// this.props.dispatch({
+		// 	type: 'UPDATE_TASK',
+		// 	task: {
+		// 		"id": 12,
+		// 		"project": "Kanban Axon",
+		// 		"name": "Test",
+		// 		"description": "Test",
+		// 		"status": 1,
+		// 		"start_date": "29/09/2018",
+		// 		"end_date": "30/09/2018",
+		// 		"assignTo": "Luc",
+		// 		"phase": "Backend"
+		// 	}
+		// })
 	}
 	render() {
-		const todoTask = tasks.filter((item)=>item.status ==0);
-		const inProcess = tasks.filter((item)=>item.status == 1);
-		const review = tasks.filter((item)=>item.status == 2);
-		const done = tasks.filter(item=>item.status == 3);
+		const todoTask = this.state.tasks.filter((item)=>item.status === 0);
+		const inProcess = this.state.tasks.filter((item)=>item.status === 1);
+		const review = this.state.tasks.filter((item)=>item.status === 2);
+		const done = this.state.tasks.filter(item=>item.status === 3);
 
 		const todoView = [];
 		const inProcessView = [];
@@ -119,4 +139,10 @@ class KangBanBoard extends Component {
 	}
 }
 
-export default KangBanBoard
+// export default KangBanBoard
+const mapStateToProps = state => {
+	console.log(state);
+	return { tasks: state.tasks };
+};
+
+export default connect(mapStateToProps)(KangBanBoard);

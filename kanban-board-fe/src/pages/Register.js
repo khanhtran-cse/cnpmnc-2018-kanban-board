@@ -61,6 +61,7 @@ class Register extends Component {
 		console.log('Submit');
 		e.preventDefault();
 		const { email, password, pwConfirm, formErrors } = this.state;
+		console.log("pwConfirm", pwConfirm);
 		if (formErrors.email === '' && formErrors.password === '' && formErrors.pwConfirm === '') {
 			this.setState({sending: true});
 			let data = { username: email, password: password }
@@ -68,9 +69,9 @@ class Register extends Component {
 				// console.log(res);
 				if(!res.isError) {
 					// TODO:
-					if(res && res.data.code == 0){
+					if(res && res.data.code === 0){
 						swal('Success!', 'Đăng ký thành công.', 'success');
-					} else if(res.data.code == 3){
+					} else if(res.data.code === 3){
 						swal('Error!', 'Tên đăng nhập đã tồn tại.', 'error');
 					} else{
 						swal('Error!', 'Lỗi hệ thống', 'error');

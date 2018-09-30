@@ -43,8 +43,12 @@ router.post('/login', function (req, res, next) {
   console.log('User', user);
   if (user && user.username && user.password) {
     database.login({ username: user.username, password: user.password })
-      .then(() => {
-        res.status(200).send({ code: code.SUCCESS, message: 'Login successfully' });
+      .then((user) => {
+        res.status(200).send({ 
+          code: code.SUCCESS,
+           message: 'Login successfully',
+           data: user
+          });
       })
       .catch(error => {
         res.status(200).send({ code: code.DATABASE_ERROR, message: 'Login failure', error: error });

@@ -15,7 +15,6 @@ class KangBanBoard extends Component {
     super(props);
     this.state = {
 			isAuth: AuthenticateService.isAuthenticate(),
-			localBacklogs: LocalStorageService.get('tasks'),
 			backlogs:[],
 		}
 		this.userId = AuthenticateService.getUserId();
@@ -24,7 +23,6 @@ class KangBanBoard extends Component {
 		if(!this.state.isAuth) {
 			AuthenticateService.removeAuthenticate();
 		}
-		// console.log("tasks local: ", this.state.tasks);
 	}
 	componentDidMount() {
 		// this.props.dispatch({
@@ -41,20 +39,20 @@ class KangBanBoard extends Component {
 		// 		"phase": "Backend"
 		// 	}
 		// })
-		// console.log(this.userId);
-		// sendRequest('GET',`items/backlogs?userId=${this.userId}`,{}).then(data=>{
-		// 	console.log(data);
-		// 	data = data.data;
-		// 	if(data.code == 0){
-		// 		this.setState({ backlogs: data.data });
-		// 	} else{
-		// 		swal('Error!', 'Đã xảy ra lỗi.', 'error')
-		// 	}
-		// });
+		console.log(this.userId);
+		sendRequest('GET',`items/backlogs?userId=${this.userId}`,{}).then(data=>{
+			console.log(data);
+			data = data.data;
+			if(data.code == 0){
+				this.setState({ backlogs: data.data });
+			} else{
+				swal('Error!', 'Đã xảy ra lỗi.', 'error')
+			}
+		});
 	}
 
 	render() {
-		const tasks = [...this.state.backlogs,...this.state.localBacklogs];
+		const tasks = this.state.backlogs;
 		const todoTask = tasks.filter((item)=>item.status ==0);
 		const inProcess = tasks.filter((item)=>item.status == 1);
 		const review = tasks.filter((item)=>item.status == 2);

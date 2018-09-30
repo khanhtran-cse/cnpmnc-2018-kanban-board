@@ -58,6 +58,24 @@ router.post('/create-backlog', function (req, res, next) {
   }
 });
 
+router.post('/update-backlog', function (req, res, next) {
+  // console.log(req);
+  const data = req.body;
+  // console.log(data);
+  if (data && data.userId && data.data) {
+    const item = data.data;
+    item.userId = data.userId;
+    database.updateBacklog(item).then(_ => {
+      res.status(200).send({ code: code.SUCCESS, message: 'UPdate backlog successfully.' });
+    })
+      .catch(err => {
+        res.status(200).send({ code: code.DATABASE_ERROR, message: 'Database error' });
+      });
+  } else {
+    res.status(200).send({ code: code.INPUT_ERROR, message: 'Input error' });
+  }
+});
+
 
 /* GET users listing. */
 router.get('/', function (req, res, next) {

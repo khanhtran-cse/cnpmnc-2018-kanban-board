@@ -135,11 +135,48 @@ function insertBacklog(data) {
     });
 }
 
+function updateBacklog(data) {
+    return new Promise((resolve, reject) => {
+        connectDatabase().then(db => {
+            console.log('Update: ', data);
+            data._id = data.id;
+            db.collection(BACKLOG_TABLE).find({_id: data.id}).toArray((err,result)=>{
+                console.log(err);
+                console.log(result);
+            });;
+            try {
+                db.collection(BACKLOG_TABLE).updateOne({ "_id": data.id}, { $set: {'name':'Khanh111'}} ).then((err, result) => {
+                    // console.log('error', err,);
+                });
+                resolve();
+            } catch (err) {
+                console.log(err);
+                reject(err);
+
+            }
+
+            // .then( (err, result) => {
+            //     console.log(err,result);
+            //     if (err) {
+            //         reject(err);
+            //         return;
+            //     }
+            //     resolve();
+            // });
+        })
+            .catch(err => {
+                console.log('error', err);
+                reject(err);
+            });
+    });
+}
+
 module.exports = {
     createUser,
     login,
     existUser,
     getBacklogs,
     getBacklog,
-    insertBacklog
+    insertBacklog,
+    updateBacklog
 }

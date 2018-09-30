@@ -52,7 +52,7 @@ class KangBanBoard extends Component {
 	}
 
 	render() {
-		const tasks = [...this.state.backlogs,...this.state.localBacklogs];
+		const tasks = this.state.backlogs;
 		const todoTask = tasks.filter((item)=>item.status ==0);
 		const inProcess = tasks.filter((item)=>item.status == 1);
 		const review = tasks.filter((item)=>item.status == 2);

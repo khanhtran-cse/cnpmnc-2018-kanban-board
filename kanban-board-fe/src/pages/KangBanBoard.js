@@ -1,8 +1,67 @@
 import React, { Component } from 'react';
 import HomeHeader from '../components/HomeHeader';
+const tasks = require('./backlog.json');
 
 class KangBanBoard extends Component {
 	render() {
+		const todoTask = tasks.filter((item)=>item.status ==0);
+		const inProcess = tasks.filter((item)=>item.status == 1);
+		const review = tasks.filter((item)=>item.status == 2);
+		const done = tasks.filter(item=>item.status == 3);
+
+		const todoView = [];
+		const inProcessView = [];
+		const reviewView = [];
+		const doneView = [];
+
+		todoTask.forEach(item=>{
+			const view = <div className="backlogs-item" key={item.id}>
+				<div className="project">{item.project}</div>
+				<div className="title">{item.name}</div>
+				<div className="due-date">Due date: <span>{item.start_date}</span></div>
+				<div className="phase">Phase: <span>{item.phase}</span></div>
+				<div className="assign">@{item.assignTo} - </div>
+			</div>
+
+			todoView.push(view);
+		});
+
+		inProcess.forEach(item => {
+			const view = <div className="backlogs-item" key={item.id}>
+				<div className="project">{item.project}</div>
+				<div className="title">{item.name}</div>
+				<div className="due-date">Due date: <span>{item.start_date}</span></div>
+				<div className="phase">Phase: <span>{item.phase}</span></div>
+				<div className="assign">@{item.assignTo} - </div>
+			</div>
+
+			inProcessView.push(view);
+		});
+
+		review.forEach(item => {
+			const view = <div className="backlogs-item" key={item.id}>
+				<div className="project">{item.project}</div>
+				<div className="title">{item.name}</div>
+				<div className="due-date">Due date: <span>{item.start_date}</span></div>
+				<div className="phase">Phase: <span>{item.phase}</span></div>
+				<div className="assign">@{item.assignTo} - </div>
+			</div>
+
+			reviewView.push(view);
+		});
+
+		done.forEach(item => {
+			const view = <div className="backlogs-item" key={item.id}>
+				<div className="project">{item.project}</div>
+				<div className="title">{item.name}</div>
+				<div className="due-date">Due date: <span>{item.start_date}</span></div>
+				<div className="phase">Phase: <span>{item.phase}</span></div>
+				<div className="assign">@{item.assignTo} - </div>
+			</div>
+
+			doneView.push(view);
+		});
+		
 		return (
 			<React.Fragment>
 				<HomeHeader />
@@ -15,106 +74,26 @@ class KangBanBoard extends Component {
 								<div className="row">
 									<div className="item">
 										<div className="col-title">Todo</div>
-										<div className="backlogs-item">
-											<div className="project">01. Project Axon</div>
-											<div className="title">Component Login</div>
-											<div className="due-date">Due date: <span>22/09/2018</span></div>
-											<div className="phase">Phase: <span>Front-End</span></div>
-											<div className="assign">@luctc - </div>
-										</div>
-										<div className="backlogs-item">
-											<div className="project">01. Project Axon</div>
-											<div className="title">Component Login</div>
-											<div className="due-date">Due date: <span>22/09/2018</span></div>
-											<div className="phase">Phase: <span>Front-End</span></div>
-											<div className="assign">@luctc - </div>
-										</div>
-										<div className="backlogs-item">
-											<div className="project">01. Project Axon</div>
-											<div className="title">Component Login</div>
-											<div className="due-date">Due date: <span>22/09/2018</span></div>
-											<div className="phase">Phase: <span>Front-End</span></div>
-											<div className="assign">@luctc - </div>
-										</div>
+											{todoView}
 									</div>
 
 									{/* Column 2 */}
 									<div className="item">
 									<div className="col-title">In Process</div>
-										<div className="backlogs-item">
-											<div className="project">01. Project Axon</div>
-											<div className="title">Component Login</div>
-											<div className="due-date">Due date: <span>22/09/2018</span></div>
-											<div className="phase">Phase: <span>Front-End</span></div>
-											<div className="assign">@luctc - </div>
-										</div>
-										<div className="backlogs-item">
-											<div className="project">01. Project Axon</div>
-											<div className="title">Component Login</div>
-											<div className="due-date">Due date: <span>22/09/2018</span></div>
-											<div className="phase">Phase: <span>Front-End</span></div>
-											<div className="assign">@luctc - </div>
-										</div>
-										<div className="backlogs-item">
-											<div className="project">01. Project Axon</div>
-											<div className="title">Component Login</div>
-											<div className="due-date">Due date: <span>22/09/2018</span></div>
-											<div className="phase">Phase: <span>Front-End</span></div>
-											<div className="assign">@luctc - </div>
-										</div>
+										{inProcessView}
 									</div>
 
 									{/* Columne 3 */}
 
 									<div className="item">
 										<div className="col-title">Bugs</div>
-										<div className="backlogs-item">
-											<div className="project">01. Project Axon</div>
-											<div className="title">Component Login</div>
-											<div className="due-date">Due date: <span>22/09/2018</span></div>
-											<div className="phase">Phase: <span>Front-End</span></div>
-											<div className="assign">@luctc - </div>
-										</div>
-										<div className="backlogs-item">
-											<div className="project">01. Project Axon</div>
-											<div className="title">Component Login</div>
-											<div className="due-date">Due date: <span>22/09/2018</span></div>
-											<div className="phase">Phase: <span>Front-End</span></div>
-											<div className="assign">@luctc - </div>
-										</div>
-										<div className="backlogs-item">
-											<div className="project">01. Project Axon</div>
-											<div className="title">Component Login</div>
-											<div className="due-date">Due date: <span>22/09/2018</span></div>
-											<div className="phase">Phase: <span>Front-End</span></div>
-											<div className="assign">@luctc - </div>
-										</div>
+										{reviewView}
 									</div>
 
 									{/* Column 4 */}
 									<div className="item">
 										<div className="col-title">Done</div>
-										<div className="backlogs-item">
-											<div className="project">01. Project Axon</div>
-											<div className="title">Component Login</div>
-											<div className="due-date">Due date: <span>22/09/2018</span></div>
-											<div className="phase">Phase: <span>Front-End</span></div>
-											<div className="assign">@luctc - </div>
-										</div>
-										<div className="backlogs-item">
-											<div className="project">01. Project Axon</div>
-											<div className="title">Component Login</div>
-											<div className="due-date">Due date: <span>22/09/2018</span></div>
-											<div className="phase">Phase: <span>Front-End</span></div>
-											<div className="assign">@luctc - </div>
-										</div>
-										<div className="backlogs-item">
-											<div className="project">01. Project Axon</div>
-											<div className="title">Component Login</div>
-											<div className="due-date">Due date: <span>22/09/2018</span></div>
-											<div className="phase">Phase: <span>Front-End</span></div>
-											<div className="assign">@luctc - </div>
-										</div>
+										{doneView}
 									</div>
 								</div>
 							</div>

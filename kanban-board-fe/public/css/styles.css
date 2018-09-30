@@ -61,6 +61,7 @@ header .right {
 	width: 25%;
 	padding: 10px;
 	display: inline-block;
+	vertical-align: top;
 }
 .wrapper-board .col-title {
 	font-size: 14px;
